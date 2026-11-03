@@ -1,0 +1,139 @@
+/* Tokens semânticos da interface do full-print (popup e prévia). Tema = sistema (prefers-color-scheme).
+   Escuro: valores do Figma (barra 2:3 e popup 5:350). Claro: derivado do escuro, mesma composição e hierarquia.
+   Afeta só a interface da extensão; nunca a página capturada. */
+:root {
+  color-scheme: light dark;
+  --fp-font: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  /* superfícies */
+  --fp-surface: #ffffff;
+  --fp-canvas: #eceef2;
+
+  /* textos */
+  --fp-text: #0a0a0b;
+  --fp-text-muted: #55565c;
+
+  /* botão secundário (contorno) */
+  --fp-btn-fg: #0a0a0b;
+  --fp-btn-border: #0a0a0b;
+  --fp-btn-hover-bg: rgb(10 10 11 / 8%);
+  --fp-btn-active-bg: rgb(10 10 11 / 16%);
+
+  /* botão primário (preenchido) */
+  --fp-primary-bg: #0a0a0b;
+  --fp-primary-fg: #ffffff;
+  --fp-primary-hover-bg: #3c3c3c;
+  --fp-primary-active-bg: #1b1b1f;
+
+  /* foco, progresso e feedbacks */
+  --fp-focus: #651be4;
+  --fp-track: #dedede;
+  --fp-fill: #3c3c3c;
+  --fp-success: #0f6b36;
+  --fp-success-bg: rgb(15 107 54 / 10%);
+  --fp-danger: #b3261e;
+  --fp-danger-bg: rgb(179 38 30 / 8%);
+  --fp-disabled: 0.4;
+
+  /* o SVG do github é branco: inverte no tema claro sem alterar o arquivo */
+  --fp-icon-filter: invert(1);
+  --fp-shadow: 0 2px 16px rgb(0 0 0 / 18%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fp-surface: #0a0a0b;
+    --fp-canvas: #1b1b1f;
+    --fp-text: #ffffff;
+    --fp-text-muted: #b8b8c0;
+    --fp-btn-fg: #ffffff;
+    --fp-btn-border: #ffffff;
+    --fp-btn-hover-bg: rgb(255 255 255 / 12%);
+    --fp-btn-active-bg: rgb(255 255 255 / 22%);
+    --fp-primary-bg: #ffffff;
+    --fp-primary-fg: #0a0a0b;
+    --fp-primary-hover-bg: #dedede;
+    --fp-primary-active-bg: #c4c4c4;
+    --fp-focus: #b9a2ff;
+    --fp-success: #5fd68a;
+    --fp-success-bg: rgb(95 214 138 / 12%);
+    --fp-danger: #ff8a80;
+    --fp-danger-bg: rgb(255 138 128 / 10%);
+    --fp-icon-filter: none;
+    --fp-shadow: 0 2px 16px rgb(0 0 0 / 55%);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fp-font);
+  color: var(--fp-text);
+  background: var(--fp-surface);
+}
+
+/* botões: 32 px de altura, cantos retos, contorno de 1 px (Figma) */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 0 10px;
+  font: 400 16px/1 var(--fp-font);
+  color: var(--fp-btn-fg);
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid var(--fp-btn-border);
+  border-radius: 0;
+  transition: background-color 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+}
+
+.btn:hover:not(:disabled) {
+  background: var(--fp-btn-hover-bg);
+}
+
+.btn:active:not(:disabled) {
+  background: var(--fp-btn-active-bg);
+}
+
+.btn.primary {
+  color: var(--fp-primary-fg);
+  background: var(--fp-primary-bg);
+  border-color: var(--fp-primary-bg);
+}
+
+.btn.primary:hover:not(:disabled) {
+  background: var(--fp-primary-hover-bg);
+  border-color: var(--fp-primary-hover-bg);
+}
+
+.btn.primary:active:not(:disabled) {
+  background: var(--fp-primary-active-bg);
+  border-color: var(--fp-primary-active-bg);
+}
+
+.btn:focus-visible,
+a:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--fp-focus);
+  outline-offset: 2px;
+}
+
+.btn:disabled {
+  cursor: default;
+  opacity: var(--fp-disabled);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}

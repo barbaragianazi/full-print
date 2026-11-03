@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>full-print — prévia</title>
+    <link rel="stylesheet" href="../shared/theme.css" />
+    <link rel="stylesheet" href="./preview.css" />
+  </head>
+  <body>
+    <header id="toolbar">
+      <!-- logotipo completo; minimalista em larguras compactas; variante clara/escura pelo tema do sistema -->
+      <picture class="brand">
+        <source media="(max-width: 560px) and (prefers-color-scheme: light)" srcset="../img/logo-minimal-light.svg" />
+        <source media="(max-width: 560px)" srcset="../img/logo-minimal-dark.svg" />
+        <source media="(prefers-color-scheme: light)" srcset="../img/logo-light.svg" />
+        <img src="../img/logo-dark.svg" alt="full-print" width="204" height="43" />
+      </picture>
+      <p id="meta" class="meta">carregando…</p>
+      <div class="actions">
+        <a id="github" class="btn icon" href="#" target="_blank" rel="noopener noreferrer" aria-label="full-print no github" hidden>
+          <img src="../img/git-hub.svg" alt="" width="24" height="24" />
+        </a>
+        <button id="copy" type="button" class="btn" disabled>copiar imagem</button>
+        <button id="save-pdf" type="button" class="btn" disabled>salvar PDF</button>
+        <button id="save-png" type="button" class="btn primary" disabled>salvar PNG</button>
+      </div>
+    </header>
+    <p id="toast" role="status" aria-live="polite"></p>
+    <main>
+      <p id="message" hidden></p>
+      <img id="image" alt="captura da página inteira" hidden />
+    </main>
+    <script type="module" src="./preview.ts"></script>
+  </body>
+</html>

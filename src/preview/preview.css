@@ -1,0 +1,185 @@
+/* Barra de pré-visualização (Figma 2:3: 1904 × 99, padding 65/29; aqui mais baixa por pedido: 12 px em cima e embaixo, logotipo à esquerda, ações à direita).
+   Tokens em ../shared/theme.css. A barra é uma grade de 3 colunas (logotipo | metadados centralizados | ações). */
+body {
+  font-size: 14px;
+  line-height: 1.4;
+  background: var(--fp-canvas);
+}
+
+#toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-areas: "brand meta actions";
+  gap: 16px;
+  align-items: center;
+  padding: 12px clamp(16px, 3.4vw, 65px);
+  background: var(--fp-surface);
+}
+
+.brand {
+  grid-area: brand;
+  display: block;
+  justify-self: start;
+  min-width: 0;
+}
+
+.brand img {
+  display: block;
+  width: 204px;
+  max-width: 100%;
+  height: auto;
+}
+
+.meta {
+  grid-area: meta;
+  max-width: 40vw;
+  margin: 0;
+  overflow: hidden;
+  font-size: 14px;
+  color: var(--fp-text-muted);
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.actions {
+  grid-area: actions;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: flex-end;
+}
+
+.actions .btn:not(.icon) {
+  width: 149px;
+}
+
+.btn.icon {
+  width: 53px;
+  padding: 0;
+}
+
+.btn.icon[hidden] {
+  display: none;
+}
+
+.btn.icon img {
+  display: block;
+  width: 24px;
+  height: 24px;
+  filter: var(--fp-icon-filter);
+}
+
+/* feedback do botão de copiar (texto + cor discreta), ~2 s */
+.btn[data-state="success"] {
+  color: var(--fp-success);
+  background: var(--fp-success-bg);
+  border-color: var(--fp-success);
+}
+
+.btn[data-state="error"] {
+  color: var(--fp-danger);
+  background: var(--fp-danger-bg);
+  border-color: var(--fp-danger);
+}
+
+#toast {
+  position: fixed;
+  bottom: 16px;
+  left: 50%;
+  z-index: 20;
+  max-width: min(560px, calc(100vw - 32px));
+  margin: 0;
+  padding: 10px 14px;
+  font-size: 14px;
+  color: var(--fp-text);
+  text-align: center;
+  background: var(--fp-surface);
+  border: 1px solid var(--fp-btn-border);
+  box-shadow: var(--fp-shadow);
+  transform: translateX(-50%);
+}
+
+#toast[data-kind="error"] {
+  color: var(--fp-danger);
+  border-color: var(--fp-danger);
+}
+
+#toast:empty {
+  display: none;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  padding: 24px 16px 64px;
+}
+
+#image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  background: #fff; /* a captura é opaca; o fundo branco só cobre transparências da própria página */
+  box-shadow: var(--fp-shadow);
+}
+
+#message {
+  max-width: 480px;
+  padding: 24px;
+  color: var(--fp-danger);
+  text-align: center;
+}
+
+#message::first-letter {
+  text-transform: lowercase;
+}
+
+/* larguras médias: metadados descem para uma segunda linha, centralizados */
+@media (max-width: 1000px) {
+  #toolbar {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "brand actions"
+      "meta meta";
+    row-gap: 12px;
+  }
+
+  .meta {
+    max-width: 100%;
+  }
+}
+
+/* larguras estreitas / zoom alto: logotipo minimalista, ações em linha própria dividindo a largura */
+@media (max-width: 560px) {
+  #toolbar {
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "brand meta"
+      "actions actions";
+    padding: 12px 16px;
+  }
+
+  .brand img {
+    width: auto;
+    height: 43px;
+  }
+
+  .actions {
+    gap: 8px;
+  }
+
+  .actions .btn:not(.icon) {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    padding: 0 6px;
+    font-size: 14px;
+  }
+
+  .meta {
+    text-align: right;
+  }
+}
